@@ -1,0 +1,308 @@
+/*
+Theme Name: Bałcyny
+Description: Motyw strony ZPD „Bałcyny” Sp. z o.o.
+Version: 0.1
+Author: ZPD Bałcyny
+Text Domain: balcyny
+*/
+
+/* ---------- Zmienne ---------- */
+:root {
+	--zielony: #2f5d3a;
+	--zielony-jasny: #e8f0e6;
+	--zloty: #c9a23a;
+	--tekst: #222;
+	--szary: #666;
+	--tlo: #fafaf7;
+	--szerokosc: 1100px;
+}
+
+/* ---------- Podstawy ---------- */
+* { box-sizing: border-box; }
+body {
+	margin: 0;
+	font-family: "Segoe UI", Arial, sans-serif;
+	line-height: 1.6;
+	color: var(--tekst);
+	background: var(--tlo);
+}
+img { max-width: 100%; height: auto; }
+a { color: var(--zielony); }
+.kontener { max-width: var(--szerokosc); margin: 0 auto; padding: 0 16px; }
+
+/* ---------- Nagłówek ---------- */
+.naglowek { background: #fff; border-bottom: 4px solid var(--zielony); }
+.naglowek .kontener {
+	display: flex; align-items: center; justify-content: space-between;
+	flex-wrap: wrap; gap: 12px; padding-top: 10px; padding-bottom: 10px;
+}
+.logo {
+	display: flex; align-items: center; gap: 12px;
+	color: var(--zielony); text-decoration: none; font-size: 1.3rem; font-weight: 700;
+}
+.logo img { display: block; width: 60px; height: auto; }
+.menu-glowne ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 18px; }
+.menu-glowne a { color: var(--zielony); text-decoration: none; font-weight: 600; }
+.menu-glowne a:hover, .menu-glowne .current-menu-item > a, .menu-glowne .current-menu-parent > a { color: var(--zloty); }
+
+/* Pasek pracownika nad nagłówkiem (template-parts/pasek-pracownika.php) – widzą go tylko zalogowani */
+.pasek-pracownika { background: #1f3d27; color: #fff; font-size: .95rem; }
+.pasek-pracownika .kontener { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; padding-top: 8px; padding-bottom: 8px; }
+.pasek-pracownika a { color: #fff; font-weight: 600; text-decoration: none; }
+.pasek-pracownika a:hover { text-decoration: underline; }
+.pasek-pracownika .pasek-dodaj { padding: 4px 12px; border-radius: 4px; background: var(--zloty); color: #1f2a1f; }
+.pasek-pracownika .pasek-dodaj:hover { background: #dbb44c; text-decoration: none; }
+.pasek-komunikat { color: var(--zloty); font-weight: 700; } /* „✓ Zmiany zapisane” po edycji strony */
+.pasek-prawa { display: flex; gap: 22px; margin-left: auto; }
+
+/* Rozwijane podmenu (np. Produkcja → Produkcja roślinna, Hodowla zwierzęca) */
+.menu-glowne li { position: relative; }
+.menu-glowne .menu-item-has-children > a::after { content: " ▾"; font-size: .8em; }
+.menu-glowne a[href="#"] { cursor: default; } /* pozycja tylko rozwija podmenu, nie jest linkiem */
+.menu-glowne .sub-menu {
+	display: none; flex-direction: column; gap: 0;
+	position: absolute; top: 100%; left: -12px; z-index: 10; min-width: 210px;
+	padding: 6px 0; background: #fff; border-top: 3px solid var(--zielony);
+	box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.menu-glowne .sub-menu a { display: block; padding: 8px 16px; font-weight: 400; }
+.menu-glowne .sub-menu a:hover { background: var(--zielony-jasny); }
+.menu-glowne li:hover > .sub-menu,
+.menu-glowne li:focus-within > .sub-menu,
+.menu-glowne li.otwarte > .sub-menu { display: flex; }
+/* pas pod pozycją, żeby podmenu nie znikało, gdy mysz zjeżdża w dół */
+.menu-glowne .menu-item-has-children { padding-bottom: 8px; margin-bottom: -8px; }
+
+/* ---------- Treść ---------- */
+.tresc { padding: 40px 0; min-height: 50vh; }
+.tresc > .hero:first-child { margin-top: -40px; } /* zdjęcie dochodzi do samego nagłówka */
+
+/* Zdjęcie u góry strony – strona główna i podstrony (template-parts/hero.php) wyglądają tak samo.
+   Wysokość wynika z tekstu, a nie z wysokości ekranu, więc tekst zaczyna się zaraz pod menu,
+   od tej samej lewej krawędzi co treść strony. Domyślnie widok pól z lotu ptaka; strona z własnym zdjęciem
+   podaje je w style="background-image: url(https://pawellawrynowicz.github.io/balcyny-podglad/wp-content/themes/balcyny/)". Przyciemnienie (::before) jest mocniejsze po lewej, pod tekstem. */
+.hero {
+	position: relative; display: flex; align-items: center;
+	padding: 72px 0; margin-bottom: 10px; color: #fff;
+	background: url("https://pawellawrynowicz.github.io/balcyny-podglad/wp-content/themes/balcyny/images/pola-z-lotu.jpg") center 55% / cover no-repeat;
+}
+.hero::before {
+	content: ""; position: absolute; inset: 0;
+	background: linear-gradient(to right, rgba(20,45,28,.85), rgba(20,45,28,.5) 60%, rgba(20,45,28,.15));
+}
+.hero > .kontener { position: relative; width: 100%; } /* tekst nad przyciemnieniem */
+.hero > .kontener > :last-child { margin-bottom: 0; }   /* równy odstęp u góry i u dołu */
+.hero h1 { margin: 0 0 .6em; font-size: 2.4rem; line-height: 1.2; text-shadow: 0 2px 6px rgba(0,0,0,.4); }
+.hero p { max-width: 700px; font-size: 1.1rem; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+@media (max-width: 600px) {
+	.hero { padding: 48px 0; }
+	.hero::before { background: rgba(20,45,28,.65); } /* tekst na całą szerokość – równe przyciemnienie */
+	.hero h1 { font-size: 1.7rem; }
+}
+
+.kafelki { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 20px; margin: 30px 0; } /* 6 kafelków: 3 w rzędzie na komputerze */
+.kafelek {
+	display: block; padding: 28px; background: #fff; border-top: 4px solid var(--zielony);
+	text-decoration: none; color: var(--tekst); box-shadow: 0 2px 8px rgba(0,0,0,.08);
+	transition: transform .2s;
+}
+.kafelek:hover { transform: translateY(-3px); }
+.kafelek h2 { margin: 0 0 8px; color: var(--zielony); font-size: 1.25rem; }
+
+.przycisk {
+	display: inline-block; padding: 10px 20px; background: var(--zielony); color: #fff;
+	text-decoration: none; border-radius: 4px; font-weight: 600;
+}
+.przycisk:hover { background: #244a2e; }
+/* Jasny przycisk na zdjęciu (np. „Zadzwoń” na stronie głównej) */
+.przycisk-jasny { background: transparent; border: 2px solid #fff; padding: 8px 18px; }
+.przycisk-jasny:hover { background: rgba(255,255,255,.15); }
+.hero-przyciski { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.link-dalej { font-weight: 600; }
+
+/* Ramka z zachętą do kontaktu (template-parts/zapytaj.php) */
+.zapytaj { background: var(--zielony-jasny); border-left: 4px solid var(--zielony); padding: 20px 24px; margin: 40px 0; }
+.zapytaj h2 { margin-top: 0; color: var(--zielony); font-size: 1.3rem; }
+.zapytaj .zapytaj-przyciski { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-bottom: 0; }
+
+/* Lista klientów (template-parts/klienci.php): logo albo nazwa firmy w równych ramkach, 4 w rzędzie, na telefonie 2.
+   Ramki mają tę samą wysokość, czy jest w nich logo, czy nazwa. Ostatni niepełny rząd jest wyśrodkowany. */
+.klienci { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.klienci li {
+	flex: 0 0 calc((100% - 30px) / 4);
+	display: flex; align-items: center; justify-content: center; text-align: center; min-height: 80px;
+	padding: 14px 16px; background: #fff; border: 1px solid #d9dfd5; border-radius: 4px; font-weight: 600; color: var(--zielony);
+}
+.klient-logo { display: block; width: auto; max-width: 100%; max-height: 52px; height: auto; object-fit: contain; }
+/* Logo czarno-białe i lekko przygaszone, żeby kolorowe znaki nie biły po oczach. Wgrany plik zostaje kolorowy,
+   szarość dodaje tylko CSS (każde nowe logo też), a po najechaniu myszką wraca kolor. */
+.klient-logo { filter: grayscale(1); opacity: .8; transition: filter .2s, opacity .2s; }
+.klienci li:hover .klient-logo { filter: none; opacity: 1; }
+@media (max-width: 800px) {
+	.klienci li { flex-basis: calc((100% - 10px) / 2); }
+}
+
+/* ---------- Kontakt ---------- */
+.kontakt { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; align-items: start; }
+.kontakt-dane h2 { margin-top: 0; color: var(--zielony); }
+.kontakt-dane p { font-size: 1.05rem; }
+.kontakt-mapa iframe {
+	display: block; width: 100%; height: 420px; border: 0;
+	box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+@media (max-width: 800px) {
+	.kontakt { grid-template-columns: 1fr; }
+	.kontakt-mapa iframe { height: 320px; }
+}
+
+/* Formularz kontaktowy (Contact Form 7) */
+.formularz-kontaktowy { max-width: 720px; }
+.formularz-kontaktowy label { display: block; font-weight: 600; }
+.formularz-kontaktowy input[type="text"],
+.formularz-kontaktowy input[type="email"],
+.formularz-kontaktowy input[type="tel"],
+.formularz-kontaktowy select,
+.formularz-kontaktowy textarea {
+	width: 100%; margin-top: 4px; padding: 10px 12px; font-size: 1rem; font-family: inherit; font-weight: 400;
+	border: 1px solid #b9c2b5; border-radius: 4px; background: #fff;
+}
+.formularz-kontaktowy textarea { height: 160px; }
+.formularz-kontaktowy input:focus, .formularz-kontaktowy select:focus, .formularz-kontaktowy textarea:focus { outline: 2px solid var(--zielony); }
+.formularz-kontaktowy .wpcf7-submit {
+	padding: 12px 28px; font-size: 1.05rem; font-weight: 600; cursor: pointer;
+	background: var(--zielony); color: #fff; border: 0; border-radius: 4px;
+}
+.formularz-kontaktowy .wpcf7-submit:hover { background: #244a2e; }
+.formularz-kontaktowy .wpcf7-not-valid-tip { color: #b3261e; font-size: .9rem; }
+.podglad-uwaga { background: #fff8e1; border-left: 4px solid var(--zloty); padding: 12px 16px; } /* tylko w kopii statycznej */
+.formularz-rodo { font-size: .85rem; color: var(--szary); }
+
+/* ---------- Strony działów ---------- */
+.hero-z-liczbami { padding-bottom: 112px; } /* kafelki z liczbami (.liczby) nachodzą na dół zdjęcia o 40 px */
+.hero-dzial p { max-width: 760px; }
+@media (max-width: 600px) {
+	.hero-z-liczbami { padding-bottom: 88px; }
+}
+
+.liczby {
+	display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;
+	margin: -40px 0 30px; position: relative; /* kafelki nachodzą na zdjęcie */
+}
+.liczba { background: #fff; padding: 20px; text-align: center; border-bottom: 4px solid var(--zloty); box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+.liczba strong { display: block; font-size: 1.8rem; color: var(--zielony); line-height: 1.2; }
+.liczba span { color: var(--szary); }
+
+.pozycje { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.pozycja { background: #fff; padding: 18px 20px; border-left: 4px solid var(--zielony); box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.pozycja-naglowek { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.pozycja h3 { margin: 0; color: var(--zielony); font-size: 1.1rem; }
+.pozycja-ilosc { font-weight: 700; color: var(--zloty); white-space: nowrap; }
+.pozycja p { margin: 8px 0 0; color: var(--szary); }
+
+.sekcja-tytul { color: var(--zielony); border-bottom: 2px solid var(--zielony-jasny); padding-bottom: 6px; margin-top: 40px; }
+
+/* ---------- Tekst podstron (np. Profil działalności) ---------- */
+.tekst ul { padding-left: 1.3em; }
+.tekst li { margin-bottom: 4px; }
+.tekst li ul { margin-top: 6px; }
+
+/* Sekcja: zawsze ten sam układ – tytuł na całą szerokość, tekst od lewej krawędzi.
+   Z filmem albo zdjęciem tekst i media dzielą szerokość na pół; bez nich tekst zajmuje całą szerokość. */
+.sekcja { margin: 0 0 40px; }
+.sekcja-z-media .sekcja-kolumny { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; } .sekcja-media.film { margin: 0; }.sekcja-zdjecie { display: block; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+@media (max-width: 800px) {
+	.sekcja-z-media .sekcja-kolumny { grid-template-columns: 1fr; }
+}
+
+/* ---------- Osoby ---------- */
+.grupa-tytul { margin: 24px 0 10px; font-size: 1rem; text-transform: uppercase; letter-spacing: .05em; color: var(--szary); }
+.osoby { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.osoba { background: #fff; padding: 18px 20px; border-left: 4px solid var(--zloty); box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.osoba-funkcja { color: var(--szary); font-size: .9rem; }
+.osoba-nazwa { font-weight: 700; font-size: 1.1rem; color: var(--zielony); margin: 2px 0 6px; }
+
+/* ---------- Karty aktualności ---------- */
+.karty { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 20px; }
+.karta { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.08); transition: transform .2s; }
+.karta:hover { transform: translateY(-3px); }
+.karta a { display: block; color: var(--tekst); text-decoration: none; }
+.karta-zdjecie { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.karta-tresc { padding: 16px 20px; }
+/* Kafelek z miniaturą filmu: znak ▶ na środku */
+.karta-film { position: relative; }
+.karta-film::after {
+	content: "▶"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+	width: 64px; height: 44px; line-height: 44px; text-align: center; border-radius: 12px;
+	background: rgba(204, 0, 0, .9); color: #fff; font-size: 1.3rem;
+}
+.karta h3 { margin: 4px 0 8px; color: var(--zielony); }
+.karta p { margin: 0; }
+
+/* ---------- Aktualność w całości (strony działów, lista aktualności) ---------- */
+.wpis-akt { padding: 24px 0; border-bottom: 1px solid #e3e6e0; }
+.wpis-akt:last-of-type { border-bottom: 0; }
+.wpis-akt h3 { margin: 2px 0 10px; color: var(--zielony); font-size: 1.3rem; }
+.wpis-akt-tekst p:first-of-type { margin-top: 0; }
+.wpis-akt-z-media { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; } /* zdjęcie na wysokości środka tekstu */
+.wpis-akt-z-media .film { margin: 0; }
+.wpis-akt-zdjecie { display: block; width: 100%; height: auto; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+@media (max-width: 800px) {
+	.wpis-akt-z-media { grid-template-columns: 1fr; }
+}
+
+/* Przyciski filtrowania na liście aktualności */
+.filtry { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.filtry a {
+	padding: 6px 14px; border: 2px solid var(--zielony); border-radius: 20px;
+	color: var(--zielony); text-decoration: none; font-weight: 600; font-size: .95rem;
+}
+.filtry a:hover, .filtry a.aktywny { background: var(--zielony); color: #fff; }
+
+/* ---------- Formularze pracownika: „Dodaj aktualność” (/login/) i edycja strony (?edycja=1) ---------- */
+.panel-redaktora h1 { color: var(--zielony); }
+.komunikat { background: var(--zielony-jasny); border-left: 4px solid var(--zielony); padding: 14px 18px; margin-bottom: 20px; }
+
+/* Pola formularza SCF i logowania: duże, czytelne, na całą szerokość.
+   Odstępy tylko dla pól najwyższego poziomu – pola w wierszach (np. sekcje, osoby) mają ramkę SCF. */
+.panel-redaktora .acf-form-fields > .acf-field { padding: 14px 0; border: 0; }
+.panel-redaktora .acf-field .acf-label label,
+.panel-redaktora #loginform label { font-weight: 700; font-size: 1.05rem; }
+.panel-redaktora .acf-field .acf-label .description { color: var(--szary); }
+.panel-redaktora input[type="text"],
+.panel-redaktora input[type="email"],
+.panel-redaktora input[type="url"],
+.panel-redaktora input[type="password"],
+.panel-redaktora select,
+.panel-redaktora textarea {
+	width: 100%; padding: 10px 12px; font-size: 1rem; font-family: inherit;
+	border: 1px solid #b9c2b5; border-radius: 4px; background: #fff;
+}
+.panel-redaktora input:focus, .panel-redaktora select:focus, .panel-redaktora textarea:focus { outline: 2px solid var(--zielony); }
+.panel-redaktora #loginform p { margin-bottom: 14px; }
+.panel-redaktora #loginform .login-remember label { font-weight: 400; }
+.panel-redaktora #wp-submit,
+.przycisk-duzy { padding: 14px 32px; font-size: 1.1rem; border: 0; cursor: pointer; }
+.panel-redaktora #wp-submit { background: var(--zielony); color: #fff; border-radius: 4px; font-weight: 600; }
+.edycja-anuluj { margin-left: 16px; font-weight: 600; }
+
+.moje-wpisy { list-style: none; padding: 0; }
+.moje-wpisy li { display: flex; gap: 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid #e3e6e0; }
+.moje-wpisy a { font-weight: 600; }
+.moje-wpisy a:first-of-type { margin-left: auto; } /* Popraw i Usuń przy prawej krawędzi */
+.moje-wpisy .usun { color: #b3261e; }
+.wyloguj { margin-top: 30px; font-size: .9rem; }
+
+/* ---------- Pojedyncza aktualność ---------- */
+.kontener-waski { max-width: 800px; }
+.wpis-zdjecie { display: block; width: 100%; margin-bottom: 20px; }
+.film { position: relative; aspect-ratio: 16 / 9; margin: 20px 0; }
+.film iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.wpis { margin-bottom: 30px; }
+.wpis-data { color: var(--szary); font-size: .9rem; }
+
+/* ---------- Stopka ---------- */
+.stopka { background: #1f3d27; color: #dfe8dc; padding: 30px 0; font-size: .95rem; }
+.stopka a { color: #fff; }
+.stopka .kontener { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.stopka h3 { margin-top: 0; color: #fff; font-size: 1rem; }
